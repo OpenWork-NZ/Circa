@@ -15,14 +15,9 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+import chronos.urls
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^group/', include(chronos.urls.urlpatterns)),
 ]
-
-from django.conf import settings
-from django.contrib.staticfiles import views as static
-
-if settings.DEBUG:
-    from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-    urlpatterns += staticfiles_urlpatterns()

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.db import models
 from autoslug import AutoSlugField
 
@@ -13,3 +14,7 @@ class Album(models.Model):
 
     def __str__(self):
         return self.title
+
+    def date(self):
+        def optional(item): return "?" if item is None else str(item)
+        return optional(self.start) + " – " + optional(self.end)

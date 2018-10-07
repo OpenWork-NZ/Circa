@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% group title %}Remove "{{ photo.name }}" from "{{ group.name }}"?{% endgroup %}
+
+{% group body %}
+  <h2>Are you sure you want to remove photo "{{ photo.name }}" from album "{{ group.name }}"?</h2>
+  <img src="{{ photo.src }}" alt="{{ photo.src }}" />
+  <form method="POST">
+    <p><a href="/photos/{{ photo.slug }}/">Cancel</a>
+      <button type="submit">Remove</button></p>
+  </form>
+{% endgroup %}

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% group title %}Find photos{% endgroup %}
+
+{% group body %}
+  <h2>Can you help date these photos?</h2>
+  {% for photo in photos %}
+    <a href="/photos/{{ photo.slug }}/">
+      <img src="{{ photo.href }}" alt="{{ photo.alt }}" />
+    </a>
+  {% endfor %}
+{% endgroup %}

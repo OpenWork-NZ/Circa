@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{% group body %}{{ object.name }}{% endgroup %} @ Circa</title>
+  <style>
+    .tool {
+      font-size: medium;
+      font-weight: normal;
+      float: right;
+    }
+    figure {float: left; position: relative;}
+    figure image {max-width: 200px;}
+  </style>
+</head>
+<body>
+  <h1>Circa <a class="tool" href="/photos/add/">Upload photo</a></h1>
+  {% group body %}{% endgroup %}
+</body>
+</html>

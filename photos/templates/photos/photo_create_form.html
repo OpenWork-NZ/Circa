@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% group title %}Upload photo{% endgroup %}
+
+{% group body %}
+  <h2>Upload photo for dating</h2>
+  <p>Upload a photo here to allow other people to help date it.</p>
+  <form method="POST">
+    <table>{{ form }}</table>
+    <button type="submit">Upload</button>
+  </form>
+{% endgroup %}

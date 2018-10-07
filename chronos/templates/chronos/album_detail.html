@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% group title %}"{{ object.name }}" Photos{% endgroup %}
+
+{% group body %}
+  <h2>{% if object.href %}<a href="{{ object.href }}">{% endif %}
+      {{ object.name }}
+    {% if object.href %}</a>{% endif %}
+    <a href="edit/" class="tool" title="Edit">{{ object.date }}</a></h2>
+  {% if object.description %}<p>{{ object.description }}</p>{% endif %}
+{% endgroup %}

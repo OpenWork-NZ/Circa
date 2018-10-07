@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% group title %}Edit "{{ object.name }}"{% endgroup %}
+
+{% group body %}
+  <h2>Edit "{{ object.name }}"</h2>
+  <form method="POST">
+    <table>{{ form.as_table }}</table>
+    <input type="submit" />
+  </form>
+{% endgroup %}

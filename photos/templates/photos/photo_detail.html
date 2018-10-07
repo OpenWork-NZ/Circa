@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% group title %}"{{ photo.name }}" photo{% endgroup %}
+
+{% group body %}
+  <h2>{{ object.name }}
+    <span class="tool">{{ object.date }}</span></h2>
+  <img src="{{ object.src }}" alt="{{ object.alt }}" />
+
+  <h3>Groups</h3>
+  {% for group in object.groups %}
+    <figure>
+      <a href="/groups/{{ group.slug }}/">{{ group.name }}</a>
+      <caption>{{ group.date }}
+        <a class="tool" href="groups/{{ group.slug }}/remove/"
+            title="Remove from '{{ group.name }}'">X</a>
+      </caption>
+    </figure>
+  {% endfor %}
+{% endgroup %}

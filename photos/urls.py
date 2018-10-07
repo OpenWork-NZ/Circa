@@ -7,7 +7,7 @@ from models import *
 
 urlpatterns = [
     url(r'^random/', random_redirect),
-    url(r'^new/', CreateView.as_view(model=Photo),
+    url(r'^new/', CreateView.as_view(model=Photo, success_url = "/"),
     url(r'^<slug:slug>/', DetailView.as_view(model=Photo)),
     url(r'^<slug:photo>/groups/add/$', add_group),
     url(r'^<slug:photo>/groups/<slug:group>/remove/$', remove_group)

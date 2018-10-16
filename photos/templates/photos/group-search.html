@@ -1,16 +1,17 @@
 {% extends "base.html" %}
-{% group title %}"{{ q }}" group search{% endgroup %}
+{% block title %}"{{ q }}" group search{% endblock %}
 
-{% group body %}
+{% block body %}
   <form method="GET">
     <input type="search" style="width: 100%" name="q" value="{{ q }}" />
   </form>
   <form method="POST">
+    {% csrf_token %}
     <ul>{% for group in groups %}
-      <li><a href="/groups/{{ group.slug }}/">{{ group.name }}</a>
+      <li><a href="/groups/{{ group.slug }}/">{{ group.title }}</a>
         <button name="group" value="{{ group.slug }}"
-            title="File '{{ photo.name }}' under '{{ group.name }}'">+</button>
+            title="File '{{ photo.title }}' under '{{ group.title }}'">+</button>
       </li>
     {% endfor %}</ul>
   </form>
-{% endgroup %}
+{% endblock %}

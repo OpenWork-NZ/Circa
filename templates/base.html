@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>{% group body %}{{ object.name }}{% endgroup %} @ Circa</title>
+  <title>{% block title %}{{ object.title }}{% endblock %} @ Circa</title>
   <style>
     .tool {
       font-size: medium;
@@ -13,7 +13,7 @@
   </style>
 </head>
 <body>
-  <h1>Circa <a class="tool" href="/photos/add/">Upload photo</a></h1>
-  {% group body %}{% endgroup %}
+  <h1>Circa <a class="tool" href="/photo/add/">Upload photo</a></h1>
+  {% block body %}{% endblock %}
 </body>
 </html>

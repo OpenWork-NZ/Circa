@@ -1,11 +1,12 @@
 {% extends "base.html" %}
-{% group title %}Find photos{% endgroup %}
+{% block title %}Find photos{% endblock %}
 
-{% group body %}
-  <h2>Can you help date these photos?</h2>
+{% block body %}
+  <h2>Can you help date these photos?
+    <a class="tool" href="/photo/random/">View random photo</a></h2>
   {% for photo in photos %}
-    <a href="/photos/{{ photo.slug }}/">
-      <img src="{{ photo.href }}" alt="{{ photo.alt }}" />
+    <a href="/photo/{{ photo.slug }}/">
+      <img src="{{ photo.src }}" alt="{{ photo.alt }}" />
     </a>
   {% endfor %}
-{% endgroup %}
+{% endblock %}

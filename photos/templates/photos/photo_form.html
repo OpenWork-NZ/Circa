@@ -1,11 +1,12 @@
 {% extends "base.html" %}
-{% group title %}Upload photo{% endgroup %}
+{% block title %}Upload photo{% endblock %}
 
-{% group body %}
+{% block body %}
   <h2>Upload photo for dating</h2>
   <p>Upload a photo here to allow other people to help date it.</p>
   <form method="POST">
+    {% csrf_token %}
     <table>{{ form }}</table>
     <button type="submit">Upload</button>
   </form>
-{% endgroup %}
+{% endblock %}

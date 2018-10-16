@@ -21,3 +21,37 @@ class Photo(models.Model):
 
     def url(self):
         return "/photo/" + self.slug
+    get_absolute_url = url
+
+    @property
+    def starts(self):
+        return self.groups.aggregate(date = models.Max('start'))['date']
+    def ends(self):
+        return self.groups.aggregate(date = models.Min('end'))['date']
+
+    def date(self):
+        def optional(item): return "?" if item is None else str(item)
+        return optional(self.starts) + " – " + optional(self.ends)
+
+def propagate_dates():
+    made_changes = True
+    while made_changes:
+        made_changes = False
+        for photo in Photo.objects.all():
+            if photo.starts is None and photo.ends is None: continue
+
+            if photo.starts is not None:
+                for group in photo.groups:
+                    # TODO Communicate the computer made these changes.
+                    if group.start is None or group.start > photo.starts:
+                        group.date("Date propagation", photo.starts,
+                                reference=photo.url())
+                        made_changes = True
+            if photo.ends is not None:
+                for group in photo.groups:
+                    # TODO Communicate the computer made these changes.
+                    if group.end is None or group.end < photo.ends:
+                        group.date("Date propagation", end=photo.ends,
+                                reference=photo.url())
+                        group.save()
+                        made_changes = True

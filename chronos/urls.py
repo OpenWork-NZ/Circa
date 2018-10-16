@@ -6,8 +6,7 @@ from django.views.generic.edit import UpdateView
 from models import *
 
 urlpatterns = [
-    url(r'^<slug:slug>/$', DetailView.as_view(model=Album)),
-    url(r'^<slug:slug>/edit/$', UpdateView.as_view(model=Album,
-            fields=["title", "description", "href", "start", "end"]),
-            success_url = ".."),
+    url(r'^(?P<slug>[\w-]+)/$', DetailView.as_view(model=Album)),
+    url(r'^(?P<slug>[\w-]+)/edit/$', UpdateView.as_view(model=Album,
+            fields=["title", "description", "href", "start", "end"])),
 ]

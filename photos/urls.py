@@ -6,9 +6,10 @@ from django.views.generic.edit import CreateView
 from models import *
 
 urlpatterns = [
-    url(r'^random/', random_redirect),
-    url(r'^new/', CreateView.as_view(model=Photo, success_url = "/"),
-    url(r'^<slug:slug>/', DetailView.as_view(model=Photo)),
-    url(r'^<slug:photo>/groups/add/$', add_group),
-    url(r'^<slug:photo>/groups/<slug:group>/remove/$', remove_group)
+    url(r'^random/$', random_redirect),
+    url(r'^add/$', CreateView.as_view(model=Photo,
+            fields = ['src', 'title', 'alt', 'slug'])),
+    url(r'^(?P<slug>[\w-]+)/$', DetailView.as_view(model=Photo)),
+    url(r'^(?P<photo>[\w-]+)/groups/add/$', add_group),
+    url(r'^(?P<photo>[\w-]+)/groups/(?P<group>[\w-]+)/remove/$', remove_group)
 ]

@@ -16,8 +16,12 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 import chronos.urls
+import photos.urls
+import photos.views
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^group/', include(chronos.urls.urlpatterns)),
+    url(r'^photo/', include(photos.urls.urlpatterns)),
+    url(r'^$', photos.views.discover),
 ]

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Date group "{{ group.title }}"{% endblock %}
+
+{% block body %}
+  <h1>Date group "{{ group.title }}"</h1>
+  <dl>
+    <dt>Estimated daterange</dt>
+    <dd>
+      <input type="checkbox" name="has-start" title="Start date is known"
+          {% if group.start is None %}{% else %}checked{% endif %} />
+      <input type="date" name="start" value="{{ group.start }}" />
+      –
+      <input type="checkbox" name="has-end" title="End date is known"
+          {% if group.end is None %}{% else %}checked{% endif %} />
+      <input type="date" name="start" value="{{ group.end }}" />
+    </dd>
+    <dt>Justification</dt>
+    <dd><input name="msg" /></dd>
+    <dd><input type="url" name="reference" placeholder="Reference link" /></dd>
+  </dl>
+  <input type="submit" /> <input type="reset" />
+
+  <h2>Previous datings</h2>
+  <dl>{% for commit in group.dating_set %}
+    <dt>{{ commit.changed_by }} at {{ commit.changed_at }}</dt>
+    <dd>{{ commit.start }} – {{ commit.end }}</dd>
+    <dd>{% if commit.reference %}<a href="{{ commit.reference }}">{% endif %}
+      {{ commit.commitmsg }}
+    {% if commit.reference %}</a>{% endif %}</dd>
+  {% endfor %}</dl>
+{% endblock %}

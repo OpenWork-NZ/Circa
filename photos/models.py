@@ -25,9 +25,16 @@ class Photo(models.Model):
 
     @property
     def starts(self):
-        return self.groups.aggregate(date = models.Max('start'))['date']
+        try:
+            return max(group.start for group in self.groups.all())
+        except ValueError:
+            return None
+    @property
     def ends(self):
-        return self.groups.aggregate(date = models.Min('end'))['date']
+        try:
+            return min(group.end for group in self.groups.all())
+        except ValueError:
+            return None
 
     def date(self):
         def optional(item): return "?" if item is None else str(item)

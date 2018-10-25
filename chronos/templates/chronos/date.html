@@ -7,12 +7,12 @@
     <dt>Estimated daterange</dt>
     <dd>
       <input type="checkbox" name="has-start" title="Start date is known"
-          {% if group.start is None %}{% else %}checked{% endif %} />
-      <input type="date" name="start" value="{{ group.start }}" />
+          {% if group.start == None %}{% else %}checked{% endif %} />
+      <input type="date" name="start" value="{{ group.start|default:'' }}" />
       –
       <input type="checkbox" name="has-end" title="End date is known"
-          {% if group.end is None %}{% else %}checked{% endif %} />
-      <input type="date" name="start" value="{{ group.end }}" />
+          {% if group.end == None %}{% else %}checked{% endif %} />
+      <input type="date" name="start" value="{{ group.end|default:'' }}" />
     </dd>
     <dt>Justification</dt>
     <dd><input name="msg" /></dd>
@@ -21,7 +21,7 @@
   <input type="submit" /> <input type="reset" />
 
   <h2>Previous datings</h2>
-  <dl>{% for commit in group.dating_set %}
+  <dl>{% for commit in group.dating_set.all %}
     <dt>{{ commit.changed_by }} at {{ commit.changed_at }}</dt>
     <dd>{{ commit.start }} – {{ commit.end }}</dd>
     <dd>{% if commit.reference %}<a href="{{ commit.reference }}">{% endif %}

@@ -1,9 +1,9 @@
-from django.shortcuts import render, object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect
 from models import Album
 
 # Create your views here.
 def date_group(request, group):
-    group = object_or_404(Album, slug=group)
+    group = get_object_or_404(Album, slug=group)
     if request.method == "GET":
         return render(request, "chronos/date.html", {"group": group})
 

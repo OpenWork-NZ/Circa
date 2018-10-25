@@ -1,15 +1,37 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.base import View
+from django.views.generic.edit import CreateView
 from django.http import Http404
 from django.db.models import Q
+from django.utils.text import slugify
+
+from django.contrib.auth import authenticate
 
 from models import *
 from chronos import models as chronos
+from forms import UploadPhotoForm
 
 # Create your views here.
 def random_redirect(request):
     return redirect(Photo.random()[0].url())
+
+def add_photo(request):
+    if request.method == "POST":
+        form = UploadPhotoForm(request.POST)
+        user = authenticate(form.cleaned_data['username'],
+                            form.cleaned_data['password'])
+        if form.is_valid() and (
+                user is not None and user.has_perm('photos.add_photo')):
+            photo = Photo(src=form.cleaned_data['link'],
+                        title=form.cleaned_data['title'],
+                        alt=form.cleaned_data['description'],
+                        slug=slugify(form.cleaned_data['title'], allow_unicode=True))
+            photo.save()
+            return redirect(photo.url())
+    else:
+        form = UploadPhotoForm()
+    return render(request, "photos/photo_form.html", {"form" : form})
 
 class AddGroupView(View):
     def get(self, request, photo):

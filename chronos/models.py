@@ -10,10 +10,12 @@ class Album(models.Model):
 
     @property
     def start(self):
-        return self.dating_set.order('-changed_at')[0].start
+        changes = self.dating_set.order_by('-changed_at')
+        return changes[0].start if changes.count() else None
     @property
     def end(self):
-        return self.dating_set.order('-changed_at')[0].end
+        changes = self.dating_set.order_by('-changed_at')
+        return changes[0].end if changes.count() else None
 
     def date(self, commitmsg, start=False, end=False, user=None, reference=None):
         if start is False: start = self.start

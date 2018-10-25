@@ -7,5 +7,5 @@ from models import *
 
 urlpatterns = [
     url(r'^(?P<slug>[\w-]+)/$', DetailView.as_view(model=Album)),
-    url(r'^(?P<slug>[\w-]+)/edit/$', date_group),
+    url(r'^(?P<group>[\w-]+)/edit/$', date_group),
 ]

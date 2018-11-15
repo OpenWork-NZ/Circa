@@ -39,7 +39,7 @@ class AddGroupView(View):
         q = request.GET.get("q")
         if q:
             groups = groups.filter(title__icontains = q)
-        
+
         return render(request, "photos/group-search.html", {
             "q" : q,
             "groups" : groups,
@@ -52,6 +52,15 @@ class AddGroupView(View):
         photo.groups.add(get_object_or_404(chronos.Album, slug = request.POST["group"]))
         return redirect(photo.url())
 add_group = AddGroupView.as_view()
+
+def new_group(request, photo):
+    if "name" not in request.POST: raise Http404("No name POSTed.")
+    photo = get_object_or_404(Photo, slug = photo)
+    name = request.POST["name"]
+    album = Album(title = name, slug = slugify(name))
+    album.save()
+    photo.groups.add(album)
+    return redirect(photo.url())
 
 class RemoveGroupView(View):
     def get(self, request, photo, group):

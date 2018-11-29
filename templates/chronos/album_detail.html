@@ -11,7 +11,9 @@
   <h3>Matching photos</h3>
   {% for photo in object.photo_set.all %}
     <figure>
-      <img src="{{ photo.src }}" alt="{{ photo.alt }}" />
+      <p><a href="{{ photo.url }}">
+        <img src="{{ photo.src }}" alt="{{ photo.alt }}" />
+      </a></p>
       <caption>{{ photo.date }}
         <a href="/photo/{{ photo.slug }}/groups/{{ object.slug }}/remove/" class="tool"
             title="Remove '{{ photo.name }}' from group '{{ object.name }}'">X</a>

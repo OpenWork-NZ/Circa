@@ -5,8 +5,8 @@
   <h2>Can you help date these photos?
     <a class="tool" href="/photo/random/">View random photo</a></h2>
   {% for photo in photos %}
-    <a href="/photo/{{ photo.slug }}/">
+    <figure><a href="/photo/{{ photo.slug }}/">
       <img src="{{ photo.src }}" alt="{{ photo.alt }}" />
-    </a>
+    </a></figure>
   {% endfor %}
 {% endblock %}

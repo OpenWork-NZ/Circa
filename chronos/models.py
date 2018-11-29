@@ -17,9 +17,12 @@ class Album(models.Model):
         changes = self.dating_set.order_by('-changed_at')
         return changes[0].end if changes.count() else None
 
-    def date(self, commitmsg, start=False, end=False, user=None, reference=None):
+    def submit_date(self, commitmsg, start=False, end=False, user=None, reference=None):
         if start is False: start = self.start
+        elif start is not None: start += "-01-01"
         if end is False: end = self.end
+        elif end is not None: end += "-01-01"
+        if not user.is_authenticated: user = None
         Dating(changed_by=user, justification=commitmsg, reference=reference,
                 start=start, end=end, for_album=self).save()
 
@@ -32,6 +35,7 @@ class Album(models.Model):
 
     def get_absolute_url(self):
         return "/group/" + self.slug
+    url = get_absolute_url
 
 class Dating(models.Model):
     changed_by = models.ForeignKey(settings.AUTH_USER_MODEL, null=True)

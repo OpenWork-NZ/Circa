@@ -12,7 +12,7 @@
   </form>
   {% for group in object.groups.all %}
     <figure>
-      <a href="/group/{{ group.slug }}/">{{ group.title }}</a>
+      <p><a href="/group/{{ group.slug }}/">{{ group.title }}</a></p>
       <caption>{{ group.date }}
         <a class="tool" href="groups/{{ group.slug }}/remove/"
             title="Remove from '{{ group.title }}'">X</a>

@@ -10,7 +10,7 @@ from django.contrib.auth import authenticate
 
 from models import *
 from chronos import models as chronos
-from forms import UploadPhotoForm
+from forms import UploadPhotoForm, NewGroupForm
 
 # Create your views here.
 def random_redirect(request):
@@ -19,8 +19,8 @@ def random_redirect(request):
 def add_photo(request):
     if request.method == "POST":
         form = UploadPhotoForm(request.POST)
-        user = authenticate(form.cleaned_data['username'],
-                            form.cleaned_data['password'])
+        user = authenticate(username=request.POST['username'],
+                            password=request.POST['password'])
         if form.is_valid() and (
                 user is not None and user.has_perm('photos.add_photo')):
             photo = Photo(src=form.cleaned_data['link'],
@@ -54,13 +54,22 @@ class AddGroupView(View):
 add_group = AddGroupView.as_view()
 
 def new_group(request, photo):
-    if "name" not in request.POST: raise Http404("No name POSTed.")
     photo = get_object_or_404(Photo, slug = photo)
-    name = request.POST["name"]
-    album = Album(title = name, slug = slugify(name))
-    album.save()
-    photo.groups.add(album)
-    return redirect(photo.url())
+    if request.method == "POST":
+        form = NewGroupForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data["name"]
+            album = chronos.Album(title = name, slug = slugify(name),
+                    description = form.cleaned_data["description"])
+            album.save()
+            album.submit_date("Init.",
+                    form.cleaned_data["start_date"], form.cleaned_data["end_date"],
+                    request.user, form.cleaned_data["reference"])
+            photo.groups.add(album)
+            return redirect(album.url())
+    else:
+        form = NewGroupForm(request.GET)
+    return render(request, "photos/group_form.html", {"form": form, "photo": photo})
 
 class RemoveGroupView(View):
     def get(self, request, photo, group):

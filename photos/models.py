@@ -26,13 +26,13 @@ class Photo(models.Model):
     @property
     def starts(self):
         try:
-            return max(group.start for group in self.groups.all())
+            return max(group.start for group in self.groups.all() if group.start is not None)
         except ValueError:
             return None
     @property
     def ends(self):
         try:
-            return min(group.end for group in self.groups.all())
+            return min(group.end for group in self.groups.all() if group.end is not None)
         except ValueError:
             return None
 

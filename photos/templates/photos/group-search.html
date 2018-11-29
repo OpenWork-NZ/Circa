@@ -14,8 +14,7 @@
       </li>
     {% endfor %}</ul>
   </form>
-  <form method="POST" action="new/">
-    {% csrf_token %}
+  <form method="GET" action="new/">
     <input type="hidden" name="name" value="{{ q }}" />
     <button type="submit">Create</button>
   </form>

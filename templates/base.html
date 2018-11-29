@@ -3,13 +3,30 @@
 <head>
   <title>{% block title %}{{ object.title }}{% endblock %} @ Circa</title>
   <style>
+    body {font-family: sans-serif; background: #eee;}
+    h1, h2, h3, h4 {background: black; color: #eee; padding: 4px;}
     .tool {
       font-size: medium;
       font-weight: normal;
       float: right;
     }
-    figure {float: left; position: relative;}
-    figure image {max-width: 200px;}
+    figure {float: left; position: relative; display: black;}
+    figure img {max-width: 200px;}
+    body > img {float: left;}
+
+    /* FIXME: Very specific to Odysseus, fix it there. */
+    input[type=search]::-webkit-search-decoration {
+        width: 16px; height: 16px;
+        margin: 0 2px;
+        align-self: center;
+    
+        background-image: url(icon:16/system-search-symbolic);
+        -webkit-appearance: none;
+    }
+
+    .annotated-photo {display: relative; padding: 0; margin: 0;}
+    .annotated-photo .annotation {display: absolute; border: medium dashed red;
+        padding: 0; margin: 0;}
   </style>
 </head>
 <body>

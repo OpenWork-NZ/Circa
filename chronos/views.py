@@ -10,6 +10,7 @@ def date_group(request, group):
     if "msg" not in request.POST: return
     start = request.POST["start"] if "has-start" in request.POST else None
     end = request.POST["end"] if "has-end" in request.POST else None
-    group.date(request.POST["msg"], start, end, request.user, request.POST.get("reference"))
+    group.submit_date(request.POST["msg"], start, end,
+        request.user, request.POST.get("reference"))
 
     return redirect(group.url())

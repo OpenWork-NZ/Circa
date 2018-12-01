@@ -15,6 +15,9 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
+
 import chronos.urls
 import photos.urls
 import photos.views
@@ -24,4 +27,4 @@ urlpatterns = [
     url(r'^group/', include(chronos.urls.urlpatterns)),
     url(r'^photo/', include(photos.urls.urlpatterns)),
     url(r'^$', photos.views.discover),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

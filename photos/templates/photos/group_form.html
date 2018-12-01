@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Create group{% endblock title %}
+
+{% block body %}
+  <h2>Create group for photo "{{ photo.title }}"</h2>
+  <p>This should be something in or about the image that you can in some way date.</p>
+  <div class="photo"><img src="{{ photo.src }}" alt="{{ photo.alt }}" /></div>
+
+  <form method="POST">
+    {% csrf_token %}
+    <table>{{ form }}</table>
+    <button type="submit">Create</button>
+  </form>
+
+  <script src="/static/zepto.js"></script>
+  <script src="/static/photo-crop.js"></script>
+  <script>
+    $(function() {
+      cropSelection(function(val) {
+        $('[name=source_rect]').val(val)
+      })
+      var rect = $('[name=source_rect]').attr('disabled', true).val().split("-")
+      drawCropping(parsePos(rect[0]), parsePos(rect[1]))
+    })
+  </script>
+{% endblock %}

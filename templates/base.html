@@ -12,7 +12,10 @@
     }
     figure {float: left; position: relative; display: black;}
     figure img {max-width: 200px;}
-    body > img {float: left;}
+    body > img, body > .photo {float: left;}
+    .photo {position: relative; padding: 0; border: none; margin: 0;}
+    .photo > .cropping {border: thin solid green; position: absolute;}
+    .photo > .cropping#new-cropping {border: medium solid red;}
 
     /* FIXME: Very specific to Odysseus, fix it there. */
     input[type=search]::-webkit-search-decoration {

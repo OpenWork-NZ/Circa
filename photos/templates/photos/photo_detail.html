@@ -4,7 +4,7 @@
 {% block body %}
   <h2>{{ object.title }}
     <span class="tool">{{ object.date }}</span></h2>
-  <img src="{{ object.src }}" alt="{{ object.alt }}" />
+  <div class="photo"><img src="{{ object.src }}" alt="{{ object.alt }}" /></div>
 
   <form action="groups/add/" method="GET">
     <h3>Groups
@@ -19,4 +19,14 @@
       </caption>
     </figure>
   {% endfor %}
+
+  <script src="/static/zepto.js"></script>
+  <script src="/static/photo-crop.js"></script>
+  <script>
+    $(function() {
+      cropSelection(function(crop) {
+        window.location.href = "groups/add/new/?source_rect=" + crop
+      })
+    })
+  </script>
 {% endblock %}
